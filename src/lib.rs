@@ -22,7 +22,7 @@
 //! ```
 //! use http_whatever::prelude::*;
 //! fn parse_uint(uint_as_str: &str) -> Result<usize, HttpWhatever> {
-//!     uint_as_str.parse().whatever_context("400:RequestContent:Bad value")?
+//!     uint_as_str.parse::<usize>().whatever_context("400:RequestContent:Bad value")
 //! }
 //! ```
 //!
@@ -30,7 +30,7 @@
 //! ```
 //! use http_whatever::prelude::*;
 //! fn parse_uint(uint_as_str: &str) -> Result<usize, HttpWhatever> {
-//!     uint_as_str.parse().whatever_context(http_err!(400,uint_as_str,"Bad input"))?
+//!     uint_as_str.parse().whatever_context(http_err!(400,uint_as_str,"Bad input"))
 //! }
 //! ```
 //! 
@@ -214,6 +214,7 @@ pub mod prelude {
     pub use snafu::{ensure, OptionExt as _, ResultExt as _};
     pub use snafu::{ensure_whatever, whatever};
     pub use crate::HttpWhatever;
+    pub use crate::http_err;
 }
 
 #[cfg(test)]

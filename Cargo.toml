@@ -1,12 +1,13 @@
 [package]
 name = "http-whatever"
 description = "A threasafe snafu::Whatever for HTTP errors"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Martin Bartlett"]
 license = "Apache-2.0"
 homepage = "https://github.com/bassmanitram/http-whatever"
 repository = "https://github.com/bassmanitram/http-whatever"
+documentation = "https://docs.rs/http-whatever"
 readme = "README.md"
 keywords = ["snafu", "whatever", "http"]
 categories = ["web-programming::http-server"]

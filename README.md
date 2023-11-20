@@ -1,6 +1,6 @@
 # http-whatever
 
-![CI](https://github.com/bassmanitram/http-whatever/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/bassmanitram/http-whatever/actions/workflows/rust.yml/badge.svg)
 
 A Thread-safe version of [`snafu::Whatever`](https://github.com/shepmaster/snafu), 
 which also allows for structured message strings giving HTTP status code and application 

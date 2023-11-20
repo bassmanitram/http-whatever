@@ -1,6 +1,6 @@
 # http-whatever
 
-A Thread-safe version of [`snafu::Whatever``](https://github.com/shepmaster/snafu), 
+A Thread-safe version of [`snafu::Whatever`](https://github.com/shepmaster/snafu), 
 which also allows for structured message strings giving HTTP status code and application 
 domain qualifiers, and allows an Error to be turned into an [`http::Response`](https://docs.rs/http/latest/http/)`.
 

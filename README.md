@@ -4,7 +4,7 @@
 
 A Thread-safe version of [`snafu::Whatever`](https://github.com/shepmaster/snafu), 
 which also allows for structured message strings giving HTTP status code and application 
-domain qualifiers, and allows an Error to be turned into an [`http::Response`](https://docs.rs/http/latest/http/)`.
+domain qualifiers, and allows an Error to be turned into an [`http::Response`](https://docs.rs/http/latest/http/).
 
 I fully admit that this flies in the face of "type-oriented" error handling, but
 I really do feel that that is overkill for most HTTP applications where one error 
@@ -20,7 +20,7 @@ of creating error HTTP responses from those errors.
 
 # Examples
 
-## Basic use as a drop-in for [`snafu::Whatever`].
+## Basic use ala snafu::Whatever.
 
 ```
 use http_whatever::prelude::*;

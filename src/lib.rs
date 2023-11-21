@@ -1,7 +1,7 @@
 //!
-//! A Thread-safe version of snafu::Whatever, which also allows for structured message
+//! A Thread-safe version of [`snafu::Whatever`], which also allows for structured message
 //! strings giving HTTP status code and application domain qualifiers, and allows
-//! an Error to be turned into an [`http::Response`]`.
+//! an Error to be turned into an [`http::Response`].
 //! 
 //! I fully admit that this flies in the face of "type-oriented" error handling, but
 //! I really do feel that is overkill for most HTTP applications where one error (or 
@@ -17,7 +17,7 @@
 //! 
 //! # Examples
 //! 
-//! ## Basic use as a drop-in for [`snafu::Whatever`].
+//! ## Basic use ala snafu::Whatever.
 //! 
 //! ```
 //! use http_whatever::prelude::*;
@@ -63,8 +63,8 @@ macro_rules! http_err {
 ///   and async-safe
 /// * Can be transformed into an [http::Response] using information from the error to complete
 ///   the response
-/// * Has a public `new` constructor that facilitates better ergonomics in certain error situations.
-/// * has a `parts` method to retrieve that three parts of the error.
+/// * A public `new` constructor that facilitates better ergonomics in certain error situations.
+/// * A public `parts` method to retrieve the three parts of the error.
 /// 
 /// Otherwise it is exactly the same as [`snafu::Whatever`] and can be used in exactly the same
 /// way.

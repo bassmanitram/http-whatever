@@ -67,7 +67,7 @@ macro_rules! http_err {
 }
 
 ///
-/// A almost-drop-in replacement for [`snafu::Whatever`] with the following benefits:
+/// An almost-drop-in replacement for [`snafu::Whatever`] with the following benefits:
 /// 
 /// * Conforms to the async magic incantation `Send + Sync + 'static` and so is thread-safe
 ///   and async-safe

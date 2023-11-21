@@ -8,12 +8,22 @@
 //! one error chain) is the most you will get out of any request/response cycle, and
 //! the goals are simply:
 //! 
-//! a. Tell the user what went wrong with a standard HTTP status and message, and
-//! b. Log the error (chain) for further investigation if necessary
+//! * Tell the user what went wrong with a standard HTTP status and message, and
+//! * Log the error (chain) for further investigation if necessary
 //! 
 //! To that end, this allows you to use the "whatever..." context features from
 //! [`snafu`] while still categorizing your errors and avoiding the boilerplate 
 //! of creating error HTTP responses from those errors.
+//! 
+//! The message string is comprised of three colon-separated fields, with the first
+//! two being optional:
+//! 
+//! * The HTTP status code - the default is `500`
+//! * An arbitrary string denoting the 'domain' of the application that emitted the error.
+//!   The significance of this is application-specific and no formatting rules are enforced
+//!   for it (except that it cannot contain a colon). The default is "unknown", which is applied
+//!   when the field is missing or when it contains the empty string.
+//! * The message
 //! 
 //! # Examples
 //! 
@@ -57,7 +67,7 @@ macro_rules! http_err {
 }
 
 ///
-/// A drop-in replacement for [`snafu::Whatever`] with the following benefits:
+/// A almost-drop-in replacement for [`snafu::Whatever`] with the following benefits:
 /// 
 /// * Conforms to the async magic incantation `Send + Sync + 'static` and so is thread-safe
 ///   and async-safe
@@ -68,6 +78,8 @@ macro_rules! http_err {
 /// 
 /// Otherwise it is exactly the same as [`snafu::Whatever`] and can be used in exactly the same
 /// way.
+/// 
+/// (_almost-drop-in_ because, obviously, you have to use `HttpWhatever` as your error type).
 /// 
 #[derive(Debug, Snafu)]
 #[snafu(whatever)]

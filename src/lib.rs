@@ -44,7 +44,6 @@
 //! }
 //! ```
 //! 
-use std::str::FromStr;
 use core::fmt::Debug;
 
 use http::{Response, StatusCode, header::CONTENT_TYPE};
@@ -149,18 +148,11 @@ impl HttpWhatever {
     /// 
     pub fn as_http_string_response<B>(&self) -> Response<B> 
         where
-            B: FromStr + Default,
-            <B as FromStr>::Err: Debug,
+            B: From<String> + Default
     {
         let parts = self.parts();
         let body_str = format!("{} (application domain: {})", parts.0, parts.1);
-        let body: B = match body_str.parse() {
-            Ok(b) => b,
-            Err(e) => {
-                eprintln!("Failed to parse message {} and body type: {:?}", body_str, e);
-                B::default()
-            },
-        };
+        let body: B = body_str.into();
         Response::builder()
             .status(parts.2)
             .header(CONTENT_TYPE, "text/plain")
@@ -183,18 +175,11 @@ impl HttpWhatever {
     /// 
     pub fn as_http_json_response<B>(&self) -> Response<B> 
         where
-            B: FromStr + Default,
-            <B as FromStr>::Err: Debug,
+            B: From<String> + Default
     {
         let parts = self.parts();
         let body_str = format!("{{\"message\":\"{}\",\"domain\":\"{}\"}}", parts.0, parts.1);
-        let body: B = match body_str.parse() {
-            Ok(b) => b,
-            Err(e) => {
-                eprintln!("Failed to parse message {} and body type: {:?}", body_str, e);
-                B::default()
-            },
-        };
+        let body: B = body_str.into();
         Response::builder()
             .status(parts.2)
             .header(CONTENT_TYPE, "application/json")

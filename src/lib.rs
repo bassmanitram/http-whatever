@@ -135,10 +135,8 @@ impl HttpWhatever {
 
     ///
     /// Return an [`http::Response<B>`] representation of the error, with
-    /// a string body generated from the `parse` method of the generic body 
-    /// type. If the parse fails, a default body is used and the error is
-    /// reported on stderr (so the Error from the `parse` method must implement
-    /// [`core::fmt::Debug`]).
+    /// a string body generated from the `into` method of the generic body 
+    /// type.
     /// 
     /// The string in the response body will be of the format
     /// 
@@ -148,7 +146,7 @@ impl HttpWhatever {
     /// 
     pub fn as_http_string_response<B>(&self) -> Response<B> 
         where
-            B: From<String> + Default
+            B: From<String>
     {
         let parts = self.parts();
         let body_str = format!("{} (application domain: {})", parts.0, parts.1);
@@ -162,10 +160,7 @@ impl HttpWhatever {
 
     ///
     /// Return an [`http::Response<B>`] representation of the error, with
-    /// a JSON body generated from the `parse` method of the generic body 
-    /// type. If the parse fails, a default body is used and the error is
-    /// reported on stderr (so the Error from the `parse` method must implement
-    /// [`core::fmt::Debug`]).
+    /// a JSON body generated from the `into` method.
     /// 
     /// The string in the response body will be of the format
     /// 
@@ -175,7 +170,7 @@ impl HttpWhatever {
     /// 
     pub fn as_http_json_response<B>(&self) -> Response<B> 
         where
-            B: From<String> + Default
+            B: From<String>
     {
         let parts = self.parts();
         let body_str = format!("{{\"message\":\"{}\",\"domain\":\"{}\"}}", parts.0, parts.1);

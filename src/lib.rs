@@ -45,6 +45,7 @@
 //! ```
 //! 
 use core::fmt::Debug;
+use std::error::Error;
 
 use http::{Response, StatusCode, header::CONTENT_TYPE};
 use snafu::{
@@ -119,6 +120,19 @@ impl HttpWhatever {
     fn display(&self) -> String {
         let parts = self.parts();
         format!("{}: (Domain: {}, HTTP status: {})", parts.0, parts.1, parts.2)
+    }
+
+    ///
+    /// Return a String that provides the `to_string()` output of this error and all nested sources.
+    /// 
+    pub fn details(&self) -> String {
+        let mut s = self.to_string();
+        let mut source = self.source();
+        while let Some(e) = source {
+            s.push_str(&format!("\n[{}]",e));
+            source = e.source();
+        }
+        s
     }
 
     ///
@@ -227,6 +241,13 @@ mod tests {
         assert_eq!(parts.0, "That was NOT a usize!");
         assert_eq!(parts.1, "Input");
         assert_eq!(parts.2, StatusCode::BAD_REQUEST);
+    }
+
+    #[test]
+    fn basic_details() {
+        let result: HttpWhatever = parse_usize("certainly not a usize").whatever_context("400:Input:That was NOT a usize!").unwrap_err();
+
+        assert_eq!(result.details(), "That was NOT a usize!: (Domain: Input, HTTP status: 400 Bad Request)\n[invalid digit found in string]");
     }
 
     #[test]

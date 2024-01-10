@@ -1,7 +1,7 @@
 [package]
 name = "http-whatever"
 description = "A threadsafe snafu::Whatever for HTTP errors"
-version = "0.2.1"
+version = "0.3.0"
 edition = "2021"
 authors = ["Martin Bartlett"]
 license = "Apache-2.0"
@@ -13,5 +13,5 @@ keywords = ["snafu", "whatever", "http"]
 categories = ["web-programming::http-server"]
 
 [dependencies]
-http = "0.2.10"
-snafu = "0.7.5"
+http = "1"
+snafu = "0.8"

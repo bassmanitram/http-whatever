@@ -202,7 +202,7 @@ impl HttpWhatever {
     /// The input string should conform to the structure documented in the
     /// crate documentation.
     /// 
-    pub fn new(message: &str) -> Self{
+    pub fn new(message: impl std::fmt::Display) -> Self{
         let err_gen = |message|  -> Result<(),HttpWhatever> {
             whatever!("{}",message)
         };

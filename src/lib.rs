@@ -31,7 +31,7 @@
 //! 
 //! ```
 //! use http_whatever::prelude::*;
-//! fn parse_uint(uint_as_str: &str) -> Result<usize, HttpWhatever> {
+//! fn parse_uint(uint_as_str: &str) -> HttpResult<usize> {
 //!     uint_as_str.parse::<usize>().whatever_context("400:RequestContent:Bad value")
 //! }
 //! ```
@@ -39,7 +39,7 @@
 //! ## Using the macro
 //! ```
 //! use http_whatever::prelude::*;
-//! fn parse_uint(uint_as_str: &str) -> Result<usize, HttpWhatever> {
+//! fn parse_uint(uint_as_str: &str) -> HttpResult<usize> {
 //!     uint_as_str.parse().whatever_context(http_err!(400,uint_as_str,"Bad input"))
 //! }
 //! ```
@@ -52,6 +52,8 @@ use snafu::{
     Snafu,
     Backtrace, whatever,
 };
+
+pub type HttpResult<A> = std::result::Result<A, HttpWhatever>;
 
 ///
 /// A macro to help format the standard message strings used by this
@@ -203,7 +205,7 @@ impl HttpWhatever {
     /// crate documentation.
     /// 
     pub fn new(message: impl std::fmt::Display) -> Self{
-        let err_gen = |message|  -> Result<(),HttpWhatever> {
+        let err_gen = |message|  -> HttpResult<()> {
             whatever!("{}",message)
         };
         err_gen(message).unwrap_err()
@@ -221,6 +223,7 @@ pub mod prelude {
     pub use snafu::{ensure_whatever, whatever};
     pub use crate::HttpWhatever;
     pub use crate::http_err;
+    pub use crate::HttpResult;
 }
 
 #[cfg(test)]

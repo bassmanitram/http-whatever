@@ -163,7 +163,10 @@ impl HttpWhatever {
     /// a body generated from the `default` method of the generic body type.
     ///
     /// # Panics
-    /// The function will panic if, internally, it cannot build that response
+    /// Technically the function will panic if, internally, it cannot build 
+    /// the response, but since the parts of the response are already verified,
+    /// and the `Body` is only created with `B::default()`, that isn't actually
+    /// possible.
     pub fn as_http_response<B>(&self) -> Response<B>
     where
         B: Default,
@@ -172,7 +175,7 @@ impl HttpWhatever {
         Response::builder()
             .status(parts.2)
             .body(B::default())
-            .unwrap()
+            .expect("Response::build should succeed")
     }
 
     ///
@@ -187,7 +190,10 @@ impl HttpWhatever {
     /// The `content-type` header of the response will be `text/plain`.
     ///
     /// # Panics
-    /// The function will panic if, internally, it cannot build that response
+    /// Technically the function will panic if, internally, it cannot build 
+    /// the response, but since the parts of the response are already verified,
+    /// and the `Body` is only created with `B::from(String)`, that isn't actually
+    /// possible.
     pub fn as_http_string_response<B>(&self) -> Response<B>
     where
         B: From<String>,
@@ -199,7 +205,7 @@ impl HttpWhatever {
             .status(parts.2)
             .header(CONTENT_TYPE, "text/plain")
             .body(body)
-            .unwrap()
+            .expect("Response::build should succeed")
     }
 
     ///
@@ -213,7 +219,10 @@ impl HttpWhatever {
     /// The `content-type` header of the response will be `application/json`.
     ///
     /// # Panics
-    /// The function will panic if, internally, it cannot build that response
+    /// Technically the function will panic if, internally, it cannot build 
+    /// the response, but since the parts of the response are already verified,
+    /// and the `Body` is only created with `B::from(String)`, that isn't actually
+    /// possible.
     pub fn as_http_json_response<B>(&self) -> Response<B>
     where
         B: From<String>,
@@ -225,7 +234,7 @@ impl HttpWhatever {
             .status(parts.2)
             .header(CONTENT_TYPE, "application/json")
             .body(body)
-            .unwrap()
+            .expect("Response::build should succeed")
     }
 
     ///
